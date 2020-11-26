@@ -6,6 +6,8 @@ All of the files in [`fonts/web`](fonts/web) are available from `https://assets.
 
 You should use the `noalts-not-hinted` version of a font unless you really cannot. It provides the best balance between features and file size, and is highly likely to already be in your user's cache.
 
+Also consider using https://github.com/guardian/auto-foft.
+
 ## List of fonts
 
 ### Guardian Headline
