@@ -4,7 +4,7 @@
 
 ## License
 
-The fonts may only be used on Guardian websites or apps. No one is licensed to use them anywhere else.
+The font files in this repo and the URLs below may only be used on Guardian websites or apps. No one is licensed to use them anywhere else.
 
 All fonts are the property of Schwartzco, Inc., t/a Commercial Type (https://commercialtype.com/), and may not be reproduced without permission.
 
