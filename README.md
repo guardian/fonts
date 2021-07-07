@@ -2,6 +2,8 @@
 
 > Fonts for the Guardian Digital.
 
+![font preview](./previews/GHGuardianHeadline.svg)
+
 ## License
 
 The font files in this repo and the URLs below may only be used on Guardian websites or apps. No one is licensed to use them anywhere else.
