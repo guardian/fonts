@@ -18,7 +18,7 @@ Also consider using https://github.com/guardian/auto-foft.
 
 All of the files in [`fonts/web`](fonts/web) are available from `https://assets.guim.co.uk/static/frontend/fonts/`.
 
-These are the URLs that should be used on all Guardian websites. All URLs will also work for `.woff` and `.ttf`.
+These are the URLs that should be used on all Guardian websites. All URLs will also work for `.woff` and `.ttf`. The recommended CSS values for `font-weight` and `font-style` are shown for each URL.
 
 #### Guardian Headline
 
