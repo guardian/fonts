@@ -66,3 +66,11 @@ These are the URLs that should be used on all Guardian websites. All URLs will a
 | Weight | Style  | URL                                                                                                                     |
 | ------ | ------ | ----------------------------------------------------------------------------------------------------------------------- |
 | 700    | normal | `https://assets.guim.co.uk/static/frontend/fonts/guardian-titlepiece/noalts-not-hinted/GTGuardianTitlepiece-Bold.woff2` |
+
+### Deployment
+
+All of the files in [`fonts/web`](fonts/web) are continuously deployed on a successful build of the main branch.
+
+### Caching
+
+The cache control value for the font files is set to `max-age=315360000` (10 years).
