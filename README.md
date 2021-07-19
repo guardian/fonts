@@ -139,7 +139,17 @@ This will make the following `noalts-not-hinted` versions of the fonts available
 
 ## Deployment
 
-All of the files in [`fonts/web`](fonts/web) are continuously deployed on a successful build of the main branch.
+### Assets
+
+All of the files in [`fonts/web`](fonts/web) are continuously deployed to the CDN on a successful build of the main branch.
+
+### `@guardian/fonts`
+
+To release a new version of the NPM package, run:
+
+```shell
+$ yarn release
+```
 
 ## Caching
 
