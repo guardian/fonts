@@ -8,6 +8,8 @@ The font files in this repo and the CDN URLs at which they are hosted may only b
 
 All fonts are the property of Schwartzco, Inc., t/a Commercial Type (https://commercialtype.com/), and may not be reproduced without permission.
 
+See the [Commercial Type EULA](legal/Commercial%20Type%20EULA%20Web-general.pdf) for full details.
+
 ## Usage
 
 ### 👍 Recommended `@font-face` rules
