@@ -59,12 +59,8 @@ import '@guardian/fonts/font-faces.css';
 #### Other
 
 ```php
-/*  e.g. index.php */
-<?php
-    <style>
-        <?php include 'node_modules/@guardian/fonts/font-faces.css'; ?>
-    </style>
-?>
+/*  e.g. in index.php */
+<?php include 'node_modules/@guardian/fonts/font-faces.css'; ?>
 ```
 
 ## ⚠️ Stylesheet
