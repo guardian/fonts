@@ -12,7 +12,44 @@ All fonts are the property of Schwartzco, Inc., t/a Commercial Type (https://com
 
 ### 👍 Recommened `@font-face` rules
 
-You can see/copy-and-paste a complete example of the recommended rules in [`fonts/web/font-faces.css`](fonts/web/font-faces.css).
+#### `@guardian/fonts` NPM package
+
+This package exports the recommended CSS as string for use in Node, and includes a CSS file and a Sass partial if that's easier for you.
+
+#### Example
+
+##### JavaScript
+
+```js
+import { fontFaceCSS } from '@guardian/fonts'
+
+export default `
+    <html>
+        <head>
+            <style>
+                ${fontFaceCSS}
+            </style>
+        </head>
+    </html>
+`
+```
+
+##### Sass
+```scss
+@import './node_modules/@guardian/fonts/font-faces';
+```
+
+##### Other
+```php
+/*  e.g. index.php */
+<?php
+    <style>
+        <?php include 'node_modules/@guardian/fonts/font-faces.css'; ?>
+    </style>
+?>
+```
+
+You can also copy-and-paste a complete example of the recommended rules from [`fonts/web/font-faces.css`](fonts/web/font-faces.css).
 
 ### 🖋️ Custom `@font-face` rules
 

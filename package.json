@@ -1,0 +1,18 @@
+{
+	"name": "@guardian/fonts",
+	"version": "0.1.0",
+	"description": "Fonts for the Guardian digital platforms.",
+	"main": "index.js",
+	"repository": "git@github.com:guardian/fonts.git",
+	"license": "MIT",
+	"files": [
+		"font-faces.css",
+		"_font-faces.scss",
+		"index.js"
+	],
+	"scripts": {
+		"copy:css": "cp fonts/web/font-faces.css font-faces.css",
+		"copy:scss": "cp fonts/web/font-faces.css _font-faces.scss",
+		"build": "yarn copy:css && yarn copy:scss"
+	}
+}

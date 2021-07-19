@@ -1,1 +1,5 @@
 .DS_Store
+/font-faces.css
+/_font-faces.scss
+/package
+/guardian-fonts-*.tgz
