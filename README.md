@@ -44,6 +44,12 @@ export default `
 `;
 ```
 
+Or if you are using something like webpack’s [`css-loader`](https://webpack.js.org/loaders/css-loader/):
+
+```js
+import '@guardian/fonts/font-faces.css';
+```
+
 #### Sass
 
 ```scss
