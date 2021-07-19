@@ -10,7 +10,7 @@ All fonts are the property of Schwartzco, Inc., t/a Commercial Type (https://com
 
 ## Usage
 
-### 👍 Recommened `@font-face` rules
+### 👍 Recommended `@font-face` rules
 
 #### `@guardian/fonts` NPM package
 
