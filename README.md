@@ -10,20 +10,28 @@ All fonts are the property of Schwartzco, Inc., t/a Commercial Type (https://com
 
 See the [Commercial Type EULA](legal/Commercial%20Type%20EULA%20Web-general.pdf) for full details.
 
-## Usage
+## CDN
 
-### 👍 Recommended `@font-face` rules
+All of the files in the [`fonts/web`](fonts/web) directory are available from `https://assets.guim.co.uk/static/frontend/fonts/`.
 
-#### `@guardian/fonts` NPM package
+## NPM package
 
-This package exports the recommended CSS as string for use in Node, and includes a CSS file and a Sass partial if that's easier for you.
+For production sites, you can get the recommended `@font-face` rules via the `@guardian/fonts` NPM package:
 
-#### Example
+```shell
+$ yarn install @guardian/fonts
+```
 
-##### JavaScript
+> See which `font-face` rules are recommended [below](#which-fonts-are-recommended).
+
+It exports the recommended `@font-face` rules as a string of CSS for use in JavaScript, and also  provides them in a CSS file and a Sass partial if that's easier for your project.
+
+### Example
+
+#### JavaScript
 
 ```js
-import { fontFaceCSS } from '@guardian/fonts'
+import { fontFaceCSS } from '@guardian/fonts';
 
 export default `
     <html>
@@ -33,83 +41,55 @@ export default `
             </style>
         </head>
     </html>
-`
+`;
 ```
 
-##### Sass
+Or if you are using something like webpack’s [`css-loader`](https://webpack.js.org/loaders/css-loader/):
+
+```js
+import '@guardian/fonts/font-faces.css';
+```
+
+#### Sass
+
 ```scss
 @import './node_modules/@guardian/fonts/font-faces';
 ```
 
-##### Other
+#### Other
+
 ```php
-/*  e.g. index.php */
-<?php
-    <style>
-        <?php include 'node_modules/@guardian/fonts/font-faces.css'; ?>
-    </style>
-?>
+/*  e.g. in index.php */
+<?php include 'node_modules/@guardian/fonts/font-faces.css'; ?>
 ```
 
-You can also copy-and-paste a complete example of the recommended rules from [`fonts/web/font-faces.css`](fonts/web/font-faces.css).
+## ⚠️ Stylesheet
 
-### 🖋️ Custom `@font-face` rules
+_Not for production use!_
 
-All of the files in [`fonts/web`](fonts/web) are available from `https://assets.guim.co.uk/static/frontend/fonts/`.
-
-#### Which version of a font should I use?
-
-You should use the `noalts-not-hinted` version unless you really cannot.
-
-It provides the best balance between character range and file size, and is highly likely to already be in your user’s cache.
-
-#### How do the font file weights map to CSS weights?
-
-| Font name |         CSS         |
-| --------- | :-----------------: |
-| Light     | `font-weight: 300;` |
-| Regular   | `font-weight: 400;` |
-| Medium    | `font-weight: 500;` |
-| Semibold  | `font-weight: 600;` |
-| Semibold  | `font-weight: 600;` |
-| Bold      | `font-weight: 700;` |
-| Black     | `font-weight: 900;` |
-
-#### Example
-
-```css
-@font-face {
-    font-family: 'GuardianTextEgyptian';
-    src: url('https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Regular.woff2')
-            format('woff2'),
-        url('https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Regular.woff')
-            format('woff'),
-        url('https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Regular.ttf')
-            format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-```
-
-### 🚨 Using the `font-faces.css` stylesheet
-
-_This method is the least performant and probably **not** what you should be using in production code..._
-
-Add a link to the font-face stylesheet to the page:
+If you want quick and dirty access to fonts and performance does not matter, you can link to a stylesheet containing the recommended `font-face` rules directly on a page:
 
 ```html
+<!-- this is slow - do not use it for production Guardian sites -->
 <link
-	href="https://assets.guim.co.uk/static/frontend/fonts/font-faces.css"
-	rel="stylesheet"
+    href="https://assets.guim.co.uk/static/frontend/fonts/font-faces.css"
+    rel="stylesheet"
 />
 ```
 
-This will make the following `noalts-not-hinted` versions of the fonts available on the page:
+🚨 Honestly, this method is the least performant and _not_ what you should be using in production code.
+
+## Which fonts are recommended?
+
+The NPM package and CDN stylesheet will provide you with the recommended `@font-face` rules.
+
+> For the full CSS, see the [`fonts/web/font-faces.css`](fonts/web/font-faces.css) stylesheet.
+
+These rules will make the `noalts-not-hinted` versions of the following fonts available to your page:
 
 | Typeface                   | font-family                | font-weight | font-style |
 | :------------------------- | :------------------------- | :---------: | :--------: |
-| **GH Guardian Headline**   | `"GH Guardian Headline"`   |    `300`    |  `normal`  |
+| **Guardian Headline**      | `"GH Guardian Headline"`   |    `300`    |  `normal`  |
 |                            | `"GH Guardian Headline"`   |    `300`    |  `italic`  |
 |                            | `"GH Guardian Headline"`   |    `400`    |  `normal`  |
 |                            | `"GH Guardian Headline"`   |    `400`    |  `italic`  |
@@ -139,11 +119,50 @@ This will make the following `noalts-not-hinted` versions of the fonts available
 |                            | `"GuardianTextSans"`       |    `900`    |  `italic`  |
 | **Guardian Titlepiece**    | `"GT Guardian Titlepiece"` |    `700`    |  `normal`  |
 
+## Custom `@font-face` rules
+
+If the recommended rules are not appropriate for your project, you can use any of the font files from the CDN.
+
+### Which version of a font should I use?
+
+You should use the `noalts-not-hinted` version unless you really cannot.
+
+It provides the best balance between character range and file size, and is highly likely to already be in your user’s cache.
+
+### How do the font file weights map to CSS weights?
+
+| Font name |         CSS         |
+| --------- | :-----------------: |
+| Light     | `font-weight: 300;` |
+| Regular   | `font-weight: 400;` |
+| Medium    | `font-weight: 500;` |
+| Semibold  | `font-weight: 600;` |
+| Semibold  | `font-weight: 600;` |
+| Bold      | `font-weight: 700;` |
+| Black     | `font-weight: 900;` |
+
+### Example
+
+```css
+@font-face {
+    font-family: 'GuardianTextEgyptian';
+    src: url('https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Regular.woff2')
+            format('woff2'),
+        url('https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Regular.woff')
+            format('woff'),
+        url('https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Regular.ttf')
+            format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+```
+
 ## Deployment
 
 ### Assets
 
-All of the files in [`fonts/web`](fonts/web) are continuously deployed to the CDN on a successful build of the main branch.
+All of the files in [`fonts/web`](fonts/web) are continuously deployed to the CDN after a successful build of the main branch.
 
 ### `@guardian/fonts`
 
