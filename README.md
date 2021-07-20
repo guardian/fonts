@@ -1,30 +1,79 @@
 # Fonts
 
-> Fonts for the Guardian Digital.
+> Fonts for the Guardian’s digital platforms.
 
 ## License
 
-The font files in this repo and the URLs below may only be used on Guardian websites or apps. No one is licensed to use them anywhere else.
+The font files in this repo and the CDN URLs at which they are hosted may only be used for Guardian websites or apps. No one is licensed to use them anywhere else.
 
 All fonts are the property of Schwartzco, Inc., t/a Commercial Type (https://commercialtype.com/), and may not be reproduced without permission.
 
-## Usage
+See the [Commercial Type EULA](legal/Commercial%20Type%20EULA%20Web-general.pdf) for full details.
 
-### 👍 Recommened `@font-face` rules
+## CDN
+
+All of the files in the [`fonts/web`](fonts/web) directory are available from `https://assets.guim.co.uk/static/frontend/fonts/`.
+
+## 👍 Recommended `@font-face` rules
 
 You can see/copy-and-paste a complete example of the recommended rules in [`fonts/web/font-faces.css`](fonts/web/font-faces.css).
 
-### 🖋️ Custom `@font-face` rules
+These are based on the Source typography guidelines and map to the helpers in [`@guardian/src-foundations/typography`](https://theguardian.design/2a1e5182b/p/95d5d0-code).
 
-All of the files in [`fonts/web`](fonts/web) are available from `https://assets.guim.co.uk/static/frontend/fonts/`.
+They will make the following typefaces and font variants available on the page:
 
-#### Which version of a font should I use?
+| Typeface                   | font-family                | font-weight | font-style |
+| :------------------------- | :------------------------- | :---------: | :--------: |
+| **Guardian Headline**      | `"GH Guardian Headline"`   |    `300`    |  `normal`  |
+|                            | `"GH Guardian Headline"`   |    `300`    |  `italic`  |
+|                            | `"GH Guardian Headline"`   |    `500`    |  `normal`  |
+|                            | `"GH Guardian Headline"`   |    `500`    |  `italic`  |
+|                            | `"GH Guardian Headline"`   |    `700`    |  `normal`  |
+| **Guardian Text Egyptian** | `"GuardianTextEgyptian"`   |    `400`    |  `normal`  |
+|                            | `"GuardianTextEgyptian"`   |    `400`    |  `italic`  |
+|                            | `"GuardianTextEgyptian"`   |    `700`    |  `normal`  |
+|                            | `"GuardianTextEgyptian"`   |    `700`    |  `italic`  |
+| **Guardian Text Sans**     | `"GuardianTextSans"`       |    `400`    |  `normal`  |
+|                            | `"GuardianTextSans"`       |    `400`    |  `italic`  |
+|                            | `"GuardianTextSans"`       |    `700`    |  `normal`  |
+|                            | `"GuardianTextSans"`       |    `700`    |  `italic`  |
+| **Guardian Titlepiece**    | `"GT Guardian Titlepiece"` |    `700`    |  `normal`  |
 
-You should use the `noalts-not-hinted` version unless you really cannot.
+_Note that some web font formats compress better than others (e.g. `woff2` is much smaller than `ttf`). Therefore, not all characters are available on every platform._
 
-It provides the best balance between character range and file size, and is highly likely to already be in your user’s cache.
+_You may notice less common characters are rendered in a different, fallback font, particularly on older browsers._
 
-#### How do the font file weights map to CSS weights?
+_This is deliberate in order to balance performance and design fidelity with technical constraints._
+
+### ⚠️ Stylesheet
+
+_Not for production use!_
+
+If you want quick and dirty access to fonts and performance does not matter, you can link to a stylesheet containing the recommended `font-face` rules directly on a page:
+
+```html
+<!-- this is slow - do not use it for production Guardian sites -->
+<link
+    href="https://assets.guim.co.uk/static/frontend/fonts/font-faces.css"
+    rel="stylesheet"
+/>
+```
+
+🚨 Seriously, this method is the least performant and _not_ what you should be using in production code.
+
+## Custom `@font-face` rules
+
+If the recommended rules are not appropriate for your project, you can use any of the font files from the CDN.
+
+> Be certain you _need_ custom fonts. Your users almost definitely have the recommended fonts already in their cache. Using the recommended fonts will ensure your users see your content and designs _much_ sooner.
+
+### Which version of a font should I use?
+
+You should use the `noalts-not-hinted` version, unless you really cannot.
+
+It provides the best balance between character range and file size.
+
+### How do the font file weights map to CSS weights?
 
 | Font name |         CSS         |
 | --------- | :-----------------: |
@@ -36,7 +85,7 @@ It provides the best balance between character range and file size, and is highl
 | Bold      | `font-weight: 700;` |
 | Black     | `font-weight: 900;` |
 
-#### Example
+### Example
 
 ```css
 @font-face {
@@ -53,56 +102,9 @@ It provides the best balance between character range and file size, and is highl
 }
 ```
 
-### 🚨 Using the `font-faces.css` stylesheet
-
-_This method is the least performant and probably **not** what you should be using in production code..._
-
-Add a link to the font-face stylesheet to the page:
-
-```html
-<link
-	href="https://assets.guim.co.uk/static/frontend/fonts/font-faces.css"
-	rel="stylesheet"
-/>
-```
-
-This will make the following `noalts-not-hinted` versions of the fonts available on the page:
-
-| Typeface                   | font-family                | font-weight | font-style |
-| :------------------------- | :------------------------- | :---------: | :--------: |
-| **GH Guardian Headline**   | `"GH Guardian Headline"`   |    `300`    |  `normal`  |
-|                            | `"GH Guardian Headline"`   |    `300`    |  `italic`  |
-|                            | `"GH Guardian Headline"`   |    `400`    |  `normal`  |
-|                            | `"GH Guardian Headline"`   |    `400`    |  `italic`  |
-|                            | `"GH Guardian Headline"`   |    `500`    |  `normal`  |
-|                            | `"GH Guardian Headline"`   |    `500`    |  `italic`  |
-|                            | `"GH Guardian Headline"`   |    `600`    |  `normal`  |
-|                            | `"GH Guardian Headline"`   |    `600`    |  `italic`  |
-|                            | `"GH Guardian Headline"`   |    `700`    |  `normal`  |
-|                            | `"GH Guardian Headline"`   |    `700`    |  `italic`  |
-|                            | `"GH Guardian Headline"`   |    `900`    |  `normal`  |
-|                            | `"GH Guardian Headline"`   |    `900`    |  `italic`  |
-| **Guardian Text Egyptian** | `"GuardianTextEgyptian"`   |    `400`    |  `normal`  |
-|                            | `"GuardianTextEgyptian"`   |    `400`    |  `italic`  |
-|                            | `"GuardianTextEgyptian"`   |    `500`    |  `normal`  |
-|                            | `"GuardianTextEgyptian"`   |    `500`    |  `italic`  |
-|                            | `"GuardianTextEgyptian"`   |    `700`    |  `normal`  |
-|                            | `"GuardianTextEgyptian"`   |    `700`    |  `italic`  |
-|                            | `"GuardianTextEgyptian"`   |    `900`    |  `normal`  |
-|                            | `"GuardianTextEgyptian"`   |    `900`    |  `italic`  |
-| **Guardian Text Sans**     | `"GuardianTextSans"`       |    `400`    |  `normal`  |
-|                            | `"GuardianTextSans"`       |    `400`    |  `italic`  |
-|                            | `"GuardianTextSans"`       |    `500`    |  `normal`  |
-|                            | `"GuardianTextSans"`       |    `500`    |  `italic`  |
-|                            | `"GuardianTextSans"`       |    `700`    |  `normal`  |
-|                            | `"GuardianTextSans"`       |    `700`    |  `italic`  |
-|                            | `"GuardianTextSans"`       |    `900`    |  `normal`  |
-|                            | `"GuardianTextSans"`       |    `900`    |  `italic`  |
-| **Guardian Titlepiece**    | `"GT Guardian Titlepiece"` |    `700`    |  `normal`  |
-
 ## Deployment
 
-All of the files in [`fonts/web`](fonts/web) are continuously deployed on a successful build of the main branch.
+All of the files in the [`fonts/web`](fonts/web) directory are continuously deployed on a successful build of the main branch.
 
 ## Caching
 
