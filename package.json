@@ -1,0 +1,28 @@
+{
+  "name": "@guardian/fonts",
+  "version": "0.1.0",
+  "description": "Fonts for the Guardian digital platforms.",
+  "repository": "git@github.com:guardian/fonts.git",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "font-faces.css",
+    "_font-faces.scss",
+    "index.js"
+  ],
+  "scripts": {
+    "build": "yarn copy:css && yarn copy:scss",
+    "copy:css": "cp fonts/web/font-faces.css font-faces.css",
+    "copy:scss": "cp fonts/web/font-faces.css _font-faces.scss",
+    "release": "np"
+  },
+  "prettier": "@guardian/prettier",
+  "devDependencies": {
+    "@guardian/prettier": "^0.6.0",
+    "np": "^7.5.0",
+    "prettier": "^2.3.2"
+  },
+  "np": {
+    "branch": "main"
+  }
+}
