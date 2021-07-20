@@ -58,9 +58,9 @@ import '@guardian/fonts/font-faces.css';
 
 #### Other
 
-```php
-/*  e.g. in index.php */
-<?php include 'node_modules/@guardian/fonts/font-faces.css'; ?>
+```scala
+@* e.g. document.scala.html *@
+<link rel="stylesheet" href="@routes.Assets.at("node_modules/@guardian/fonts/font-faces.css")">
 ```
 
 ## ⚠️ Stylesheet
