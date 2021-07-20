@@ -19,7 +19,7 @@ All of the files in the [`fonts/web`](fonts/web) directory are available from `h
 For production sites, you can get the recommended `@font-face` rules via the `@guardian/fonts` NPM package:
 
 ```shell
-$ yarn install @guardian/fonts
+$ yarn add @guardian/fonts
 ```
 
 > See which `font-face` rules are recommended [below](#which-fonts-are-recommended).
