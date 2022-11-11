@@ -8,4 +8,5 @@ deployments:
       bucket: aws-frontend-static
       cacheControl: max-age=315360000
       prefixStack: false
+      publicReadAcl: false
 
