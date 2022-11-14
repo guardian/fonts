@@ -1,9 +1,11 @@
 regions: [eu-west-1]
 stacks: [frontend]
+allowedStages:
+  - CODE
+  - PROD
 deployments:
   frontend-static/static/frontend/fonts:
     type: aws-s3
-    contentDirectory: fonts/web
     parameters:
       bucket: aws-frontend-static
       cacheControl: max-age=315360000
