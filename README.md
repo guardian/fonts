@@ -81,7 +81,6 @@ It provides the best balance between character range and file size.
 | Regular   | `font-weight: 400;` |
 | Medium    | `font-weight: 500;` |
 | Semibold  | `font-weight: 600;` |
-| Semibold  | `font-weight: 600;` |
 | Bold      | `font-weight: 700;` |
 | Black     | `font-weight: 900;` |
 
