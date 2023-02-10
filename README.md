@@ -107,4 +107,4 @@ All of the files in the [`fonts/web`](fonts/web) directory are continuously depl
 
 ## Caching
 
-The cache control value for the font files is set to `max-age=315360000` (10 years).
+The cache control value for the font files is set to `max-age=315360000; immutable` (fresh for 10 years).
