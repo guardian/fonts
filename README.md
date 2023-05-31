@@ -14,6 +14,9 @@ See the [Commercial Type EULA](legal/Commercial%20Type%20EULA%20Web-general.pdf)
 
 All of the files in the [`fonts/web`](fonts/web) directory are available from `https://assets.guim.co.uk/static/frontend/fonts/`.
 
+
+# Using fonts on Web
+
 ## 👍 Recommended `@font-face` rules
 
 You can see/copy-and-paste a complete example of the recommended rules in [`fonts/web/font-faces.css`](fonts/web/font-faces.css).
@@ -108,3 +111,77 @@ All of the files in the [`fonts/web`](fonts/web) directory are continuously depl
 ## Caching
 
 The cache control value for the font files is set to `max-age=315360000; immutable` (fresh for 10 years).
+
+
+# Using Fonts on iOS
+
+## Adding the Swift Package To Xcode
+
+To add the `GuardianFonts` Swift Package to your project, follow these steps:
+
+1. Open your project in Xcode.
+
+2. Go to `File` > `Swift Packages` > `Add Package Dependency...`.
+
+3. In the search bar, enter the URL `https://github.com/guardian/fonts.git` click `Next`.
+
+4. Select the version rule that suits your needs, then click `Next`.
+
+5. Choose the `GuardianFonts` library and click `Finish`.
+
+Now, the `GuardianFonts` Swift Package should be added to your project and you can import it wherever you need it.
+
+## Using in Another Swift Package
+
+If you're developing a Swift Package and want to use `GuardianFonts`, you can add it as a dependency in your `Package.swift` file.
+
+Here's how you can do it:
+
+1. Open your `Package.swift` file.
+
+2. Add `GuardianFonts` to the dependencies array:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/guardian/fonts.git", branch: "main")
+]
+```
+
+3. Add `GuardianFonts` as a dependency for your target:
+
+```swift
+targets: [
+    .target(
+            name: "YourPackageName",
+            dependencies: [
+                .product(name: "GuardianFonts", package: "fonts")
+            ]),
+]
+```
+
+4. Now, you can import `GuardianFonts` in any Swift file in your package.
+
+## Registration 
+Custom fonts are registered differently in Swift Packages due to the lack of an info.plist. 
+You should use `GuardianFonts.registerFonts()` function to register the fonts contained in this swift package to use in your application. 
+
+If using this from within another **module**, you can do the registration within the module's `init()` function. 
+
+Otherwise, from within a **project** this can be done within the App Delegate `application(_:willFinishLaunchingWithOptions:)` function.
+
+## Usage
+
+Wherever you want to use the module you can import it using: 
+`import GuardianFonts`
+
+###**UIKit**
+This swift package contains a convenience initialiser on UIFont, allowing you to create a font using a GuardianFontStyle in UIKit. 
+
+Example: 
+`let font = UIFont(style: .headlineRegular, size: 30)`
+
+###**SwiftUI**
+This swift package contains a modifier on `View`, allowing you to apply a font using a GuardianFontStyle in SwiftUI. 
+
+Example: 
+`Text("Hello World").font(.headlineRegular, size: 30, lineHeight: 34, verticalTrim: .standard)`
