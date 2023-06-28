@@ -62,7 +62,7 @@ If you want quick and dirty access to fonts and performance does not matter, you
 />
 ```
 
-🚨 Seriously, this method is the least performant and _not_ what you should be using in production code.
+🚨 Seriously, this method is the least performant and _not_ what you should use for public-facing production code!
 
 ## Custom `@font-face` rules
 
@@ -174,13 +174,13 @@ Otherwise, from within a **project** this can be done within the App Delegate `a
 Wherever you want to use the module you can import it using: 
 `import GuardianFonts`
 
-###**UIKit**
+### UIKit
 This swift package contains a convenience initialiser on UIFont, allowing you to create a font using a GuardianFontStyle in UIKit. 
 
 Example: 
 `let font = UIFont(style: .headlineRegular, size: 30)`
 
-###**SwiftUI**
+### SwiftUI
 This swift package contains a modifier on `View`, allowing you to apply a font using a GuardianFontStyle in SwiftUI. 
 
 Example: 
