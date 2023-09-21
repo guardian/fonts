@@ -46,7 +46,9 @@ public struct FontPad: ViewModifier {
     public func body(content: Content) -> some View {
         content
             .font(Font.custom(fontName, size: fontSize, relativeTo: relativeStyle))
-            ._lineHeightMultiple(lineMultiple)
+            // This is no longer supported on Xcode 15. 
+            // We are actively looking for a workaround.
+            // ._lineHeightMultiple(lineMultiple)
             .multilineTextAlignment(.leading)
             .padding(
                 .top,
