@@ -21,7 +21,7 @@ All of the files in the [`fonts/web`](fonts/web) directory are available from `h
 
 You can see/copy-and-paste a complete example of the recommended rules in [`fonts/web/font-faces.css`](fonts/web/font-faces.css).
 
-These are based on the Source typography guidelines and map to the helpers in [`@guardian/src-foundations/typography`](https://theguardian.design/2a1e5182b/p/95d5d0-code).
+These are based on the Source typography guidelines and map to the helpers in [`@guardian/source-foundations`](https://guardian.github.io/csnx/?path=/docs/source-foundations_typography--docs).
 
 They will make the following typefaces and font variants available on the page:
 
