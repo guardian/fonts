@@ -15,7 +15,11 @@ public struct FontPad: ViewModifier {
         self.relativeStyle = relativeStyle
         self.verticalTrim = verticalTrim
 
+#if os(iOS)
         self.font = UIFont(name: fontName, size: fontSize)
+#else
+        self.font = NSFont(name: fontName, size: fontSize)
+#endif
     }
 
     let fontName: String
@@ -25,7 +29,11 @@ public struct FontPad: ViewModifier {
 
     let verticalTrim: VerticalTrim
 
+    #if os(iOS)
     let font: UIFont?
+    #else
+    let font: NSFont?
+    #endif
 
     private var topValue: CGFloat {
         guard verticalTrim == .capToBaseline else { return 0 }
@@ -40,15 +48,17 @@ public struct FontPad: ViewModifier {
     private var lineMultiple: CGFloat {
         guard let lineHeight else { return 1 }
         guard let font else { return 1 }
-        return lineHeight / font.lineHeight
+#if os(iOS)
+        let fontsLineHeight = font.lineHeight
+#else
+        let fontsLineHeight = font.xHeight
+#endif
+        return lineHeight / fontsLineHeight
     }
 
     public func body(content: Content) -> some View {
         content
             .font(Font.custom(fontName, size: fontSize, relativeTo: relativeStyle))
-            // This is no longer supported on Xcode 15. 
-            // We are actively looking for a workaround.
-            // ._lineHeightMultiple(lineMultiple)
             .multilineTextAlignment(.leading)
             .padding(
                 .top,

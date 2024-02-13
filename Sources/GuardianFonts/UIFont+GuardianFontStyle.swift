@@ -1,5 +1,5 @@
 //
-
+#if os(iOS)
 import UIKit
 
 public extension UIFont {
@@ -24,3 +24,5 @@ public extension UIFont {
         style.fontName
     }
 }
+
+#endif
