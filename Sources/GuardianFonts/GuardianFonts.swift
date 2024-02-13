@@ -1,4 +1,9 @@
+import Foundation
+#if os(iOS)
 import UIKit
+#else
+import AppKit
+#endif
 
 /// An enumeration representing the various font styles used in the Guardian's digital platforms.
 /// Each case corresponds to a specific font style.
@@ -129,7 +134,6 @@ public class GuardianFonts: NSObject {
             return "GTGuardianTitlepiece-Bold"
         }
     }
-
 
     /// Register font file with the application
     /// - Parameters:

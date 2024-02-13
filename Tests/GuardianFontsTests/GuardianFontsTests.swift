@@ -7,7 +7,7 @@ final class GuardianFontsTests: XCTestCase {
         GuardianFonts.registerFonts()
     }
 
-
+#if os(iOS)
     func testFonts() {
         XCTAssert(GuardianFonts.hasRegistered == true, "We should have registered our fonts before we start")
 
@@ -15,4 +15,13 @@ final class GuardianFontsTests: XCTestCase {
             XCTAssertNotNil(UIFont(name: font.fontName, size: 20), "\(font.fontName) was not found")
         }
     }
+#else
+    func testFonts() {
+        XCTAssert(GuardianFonts.hasRegistered == true, "We should have registered our fonts before we start")
+
+        for font in GuardianFontStyle.allCases {
+            XCTAssertNotNil(NSFont(name: font.fontName, size: 20), "\(font.fontName) was not found")
+        }
+    }
+#endif
 }
