@@ -72,18 +72,63 @@ public struct FontPad: ViewModifier {
 }
 
 public extension View {
+    /// Use this function on a view to apply a Guardian Font Style.
+    /// This is preferred and more in line with SwiftUI best practices.
+    ///
+    /// For example: `.font(.textSansRegular, size: 14)`
+    /// Here `.textSansRegular` is a GuardianFontStyle.
+    ///
+    /// To have a fixedSize, add `.dynamicTypeSize(.large)` line after this function
+    ///
+    /// - Parameters:
+    ///   - style: GuardianFontStyle to be applied to the text
+    ///   - size: Intended size of the text
+    ///   - lineHeight: Custom line height. Nil by default
+    ///   - verticalTrim: Custom vertical trim for the font. `.capToBaseline` by default. Can be set to `.standard` to have some vertical padding.
+    ///   - relativeStyle: Relative dynamic scale type. This is nil be default in which case, the relative style is defined by the `style` parameter.
+    /// - Returns: Modified view with the Guardian Font applied
     func font(
         _ style: GuardianFontStyle,
         size: CGFloat,
         lineHeight: CGFloat? = nil,
-        verticalTrim: VerticalTrim = .capToBaseline
+        verticalTrim: VerticalTrim = .capToBaseline,
+        relativeStyle: Font.TextStyle? = nil
     ) -> some View {
         modifier(
             FontPad(
                 fontName: style.fontName,
                 fontSize: size,
                 lineHeight: lineHeight,
-                relativeStyle: style.relativeStyle,
+                relativeStyle: relativeStyle ?? style.relativeStyle,
+                verticalTrim: verticalTrim
+            )
+        )
+    }
+
+    /// Use this function on a view to apply a GuardianFont.
+    /// This can be used if you're defnining GuardianFont to be applied somewhere separately.
+    ///
+    /// For example: `.font(.guardianSubtitle, verticalTrim: .standard)`
+    /// Here `.guardianSubtitle` is a GuardianFont.
+    ///
+    /// To have a fixedSize, add `.dynamicTypeSize(.large)` line after this function
+    ///
+    /// - Parameters:
+    ///   - font: GuardianFont encapsulating the GuardianFontStyle, size and line height to be applied.
+    ///   - verticalTrim: Custom vertical trim for the font. `.capToBaseline` by default. Can be set to `.standard` to have some vertical padding.
+    ///   - relativeStyle: Relative dynamic scale type. This is nil be default in which case, the relative style is defined by the `style` parameter.
+    /// - Returns: Modified view with the Guardian Font applied
+    func font(
+        _ font: GuardianFont,
+        verticalTrim: VerticalTrim = .capToBaseline,
+        relativeStyle: Font.TextStyle? = nil
+    ) -> some View {
+        modifier(
+            FontPad(
+                fontName: font.style.fontName,
+                fontSize: font.size,
+                lineHeight: font.lineHeight,
+                relativeStyle: relativeStyle ?? font.style.relativeStyle,
                 verticalTrim: verticalTrim
             )
         )
