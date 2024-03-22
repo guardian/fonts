@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+/// This type encaspulates the GuardianFontStyle, size and line height to be applied.
 public struct GuardianFont {
     public let style: GuardianFontStyle
     public let size: CGFloat
