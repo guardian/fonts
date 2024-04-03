@@ -18,22 +18,21 @@ jobs:
       # Required for `actions/checkout`
       contents: read
 
+      # Required for riff-raff action
+      pull-requests: write
+
     steps:
       - uses: actions/checkout@v3
-
-      # Exchange OIDC JWT ID token for temporary AWS credentials to allow uploading to S3
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: eu-west-1
-          role-to-assume: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
 
       - name: Seed build number from TeamCity
         run: |
           LAST_TEAMCITY_BUILD=45
           echo GITHUB_RUN_NUMBER=$(( $GITHUB_RUN_NUMBER + $LAST_TEAMCITY_BUILD )) >> $GITHUB_ENV
 
-      - uses: guardian/actions-riff-raff@v2
+      - uses: guardian/actions-riff-raff@v4
         with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          roleArn: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
           projectName: dotcom::fonts
           configPath: riff-raff.yaml
           buildNumber: ${{ env.GITHUB_RUN_NUMBER }}
