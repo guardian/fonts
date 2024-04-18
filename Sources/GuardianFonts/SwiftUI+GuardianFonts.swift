@@ -56,9 +56,17 @@ public struct FontPad: ViewModifier {
         return lineHeight / fontsLineHeight
     }
 
+    private var lineSpacing: CGFloat {
+        guard let lineHeight else { return 0 }
+        guard let font else { return 0 }
+        let fontsLineHeight = font.lineHeight
+        return lineHeight - fontsLineHeight
+    }
+
     public func body(content: Content) -> some View {
         content
             .font(Font.custom(fontName, size: fontSize, relativeTo: relativeStyle))
+            .lineSpacing(lineSpacing)
             .multilineTextAlignment(.leading)
             .padding(
                 .top,
