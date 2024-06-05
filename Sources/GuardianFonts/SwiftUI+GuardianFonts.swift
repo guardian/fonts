@@ -166,12 +166,12 @@ public extension GuardianFontStyle {
     }
 }
 public extension Font {
-    @available(*, deprecated, message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead")
+    @available(iOS, deprecated: 100000.0, message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead")
     static func custom(style: GuardianFontStyle, size: CGFloat) -> Font {
         Font.custom(style.fontName, size: size)
     }
 
-    @available(*, deprecated, message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead")
+    @available(iOS, deprecated: 100000.0, message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead")
     static func custom(style: GuardianFontStyle, size: CGFloat, relativeTo fontStyle: Font.TextStyle) -> Font {
         Font.custom(style.fontName, size: size, relativeTo: fontStyle)
     }
