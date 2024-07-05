@@ -7,10 +7,6 @@ public struct GuardianFont {
     public let size: CGFloat
     public let lineHeight: CGFloat?
 
-    public var rawValue: Font {
-        font
-    }
-
     public var font: Font {
         Font.custom(style.fontName, size: size)
     }
