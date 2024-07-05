@@ -59,7 +59,11 @@ public struct FontPad: ViewModifier {
     private var lineSpacing: CGFloat {
         guard let lineHeight else { return 0 }
         guard let font else { return 0 }
+#if os(iOS)
         let fontsLineHeight = font.lineHeight
+#else
+        let fontsLineHeight = font.xHeight
+#endif
         return lineHeight - fontsLineHeight
     }
 
