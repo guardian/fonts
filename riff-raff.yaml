@@ -11,4 +11,11 @@ deployments:
       cacheControl: max-age=315360000, immutable
       prefixStack: false
       publicReadAcl: false
+  frontend-static/static/tools/fonts:
+    type: aws-s3
+    parameters:
+      bucket: aws-frontend-static
+      cacheControl: max-age=315360000
+      prefixStack: false
+      publicReadAcl: false
 
