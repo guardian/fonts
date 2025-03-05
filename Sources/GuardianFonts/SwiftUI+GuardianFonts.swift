@@ -8,18 +8,26 @@ public enum VerticalTrim {
 }
 
 public struct FontPad: ViewModifier {
-    internal init(fontName: String, fontSize: CGFloat, lineHeight: CGFloat? = nil, relativeStyle: Font.TextStyle, verticalTrim: VerticalTrim) {
+    init(
+        fontName: String,
+        fontSize: CGFloat,
+        lineHeight: CGFloat? = nil,
+        relativeStyle: Font.TextStyle,
+        verticalTrim: VerticalTrim,
+        alignment: TextAlignment = .leading
+    ) {
         self.fontName = fontName
         self.fontSize = fontSize
         self.lineHeight = lineHeight
         self.relativeStyle = relativeStyle
         self.verticalTrim = verticalTrim
+        self.alignment = alignment
 
-#if os(iOS)
-        self.font = UIFont(name: fontName, size: fontSize)
-#else
-        self.font = NSFont(name: fontName, size: fontSize)
-#endif
+        #if os(iOS)
+            font = UIFont(name: fontName, size: fontSize)
+        #else
+            font = NSFont(name: fontName, size: fontSize)
+        #endif
     }
 
     let fontName: String
@@ -28,11 +36,12 @@ public struct FontPad: ViewModifier {
     let relativeStyle: Font.TextStyle
 
     let verticalTrim: VerticalTrim
+    let alignment: TextAlignment
 
     #if os(iOS)
-    let font: UIFont?
+        let font: UIFont?
     #else
-    let font: NSFont?
+        let font: NSFont?
     #endif
 
     private var topValue: CGFloat {
@@ -40,30 +49,32 @@ public struct FontPad: ViewModifier {
         guard let font else { return 0 }
         return -(font.ascender - font.capHeight)
     }
+
     private var bottomValue: CGFloat {
         guard verticalTrim == .capToBaseline else { return 0 }
         guard let font else { return 0 }
         return font.descender
     }
+
     private var lineMultiple: CGFloat {
         guard let lineHeight else { return 1 }
         guard let font else { return 1 }
-#if os(iOS)
-        let fontsLineHeight = font.lineHeight
-#else
-        let fontsLineHeight = font.xHeight
-#endif
+        #if os(iOS)
+            let fontsLineHeight = font.lineHeight
+        #else
+            let fontsLineHeight = font.xHeight
+        #endif
         return lineHeight / fontsLineHeight
     }
 
     private var lineSpacing: CGFloat {
         guard let lineHeight else { return 0 }
         guard let font else { return 0 }
-#if os(iOS)
-        let fontsLineHeight = font.lineHeight
-#else
-        let fontsLineHeight = font.xHeight
-#endif
+        #if os(iOS)
+            let fontsLineHeight = font.lineHeight
+        #else
+            let fontsLineHeight = font.xHeight
+        #endif
         return lineHeight - fontsLineHeight
     }
 
@@ -71,7 +82,7 @@ public struct FontPad: ViewModifier {
         content
             .font(Font.custom(fontName, size: fontSize, relativeTo: relativeStyle))
             .lineSpacing(lineSpacing)
-            .multilineTextAlignment(.leading)
+            .multilineTextAlignment(alignment)
             .padding(
                 .top,
                 topValue
@@ -96,15 +107,19 @@ public extension View {
     ///   - style: GuardianFontStyle to be applied to the text
     ///   - size: Intended size of the text
     ///   - lineHeight: Custom line height. Nil by default
-    ///   - verticalTrim: Custom vertical trim for the font. `.capToBaseline` by default. Can be set to `.standard` to have some vertical padding.
-    ///   - relativeStyle: Relative dynamic scale type. This is nil be default in which case, the relative style is defined by the `style` parameter.
+    ///   - verticalTrim: Custom vertical trim for the font. `.capToBaseline` by default. Can be set to `.standard` to
+    /// have some vertical padding.
+    ///   - relativeStyle: Relative dynamic scale type. This is nil be default in which case, the relative style is
+    /// defined by the `style` parameter.
+    ///   - alignment: The multiline text alignment to be applied, defaults to `.leading`
     /// - Returns: Modified view with the Guardian Font applied
     func font(
         _ style: GuardianFontStyle,
         size: CGFloat,
         lineHeight: CGFloat? = nil,
         verticalTrim: VerticalTrim = .capToBaseline,
-        relativeStyle: Font.TextStyle? = nil
+        relativeStyle: Font.TextStyle? = nil,
+        alignment: TextAlignment = .leading
     ) -> some View {
         modifier(
             FontPad(
@@ -112,7 +127,8 @@ public extension View {
                 fontSize: size,
                 lineHeight: lineHeight,
                 relativeStyle: relativeStyle ?? style.relativeStyle,
-                verticalTrim: verticalTrim
+                verticalTrim: verticalTrim,
+                alignment: alignment
             )
         )
     }
@@ -127,13 +143,17 @@ public extension View {
     ///
     /// - Parameters:
     ///   - font: GuardianFont encapsulating the GuardianFontStyle, size and line height to be applied.
-    ///   - verticalTrim: Custom vertical trim for the font. `.capToBaseline` by default. Can be set to `.standard` to have some vertical padding.
-    ///   - relativeStyle: Relative dynamic scale type. This is nil be default in which case, the relative style is defined by the `style` parameter.
+    ///   - verticalTrim: Custom vertical trim for the font. `.capToBaseline` by default. Can be set to `.standard` to
+    /// have some vertical padding.
+    ///   - relativeStyle: Relative dynamic scale type. This is nil be default in which case, the relative style is
+    /// defined by the `style` parameter.
+    ///   - alignment: The multiline text alignment to be applied, defaults to `.leading`
     /// - Returns: Modified view with the Guardian Font applied
     func font(
         _ font: GuardianFont,
         verticalTrim: VerticalTrim = .capToBaseline,
-        relativeStyle: Font.TextStyle? = nil
+        relativeStyle: Font.TextStyle? = nil,
+        alignment: TextAlignment = .leading
     ) -> some View {
         modifier(
             FontPad(
@@ -141,7 +161,8 @@ public extension View {
                 fontSize: font.size,
                 lineHeight: font.lineHeight,
                 relativeStyle: relativeStyle ?? font.style.relativeStyle,
-                verticalTrim: verticalTrim
+                verticalTrim: verticalTrim,
+                alignment: alignment
             )
         )
     }
@@ -158,24 +179,38 @@ public extension View {
 public extension GuardianFontStyle {
     var relativeStyle: Font.TextStyle {
         switch self {
-        case .headlineLight, .headlineRegular, .headlineMedium, .headlineBold, .headlineSemibold, .headlineRegularItalic, .headlineLightItalic, .headlineMediumItalic, .headlineSemiboldItalic, .headlineBoldItalic, .headlineBlack, .headlineBlackItalic:
+        case .headlineLight, .headlineRegular, .headlineMedium, .headlineBold, .headlineSemibold,
+             .headlineRegularItalic,
+             .headlineLightItalic, .headlineMediumItalic, .headlineSemiboldItalic, .headlineBoldItalic, .headlineBlack,
+             .headlineBlackItalic:
             return .headline
-        case .textSansBold, .textSansBoldItalic, .textSansRegular, .textSansRegularItalic, .textSansMedium, .textSansMediumItalic, .textSansBlack, .textSansBlackItalic:
+        case .textSansBold, .textSansBoldItalic, .textSansRegular, .textSansRegularItalic, .textSansMedium,
+             .textSansMediumItalic, .textSansBlack, .textSansBlackItalic:
             return .body
-        case .textEgyptianRegular, .textEgyptianRegularItalic, .textEgyptianMedium, .textEgyptianMediumItalic, .textEgyptianBold, .textEgyptianBoldItalic, .textEgyptianBlack, .textEgyptianBlackItalic:
+        case .textEgyptianRegular, .textEgyptianRegularItalic, .textEgyptianMedium, .textEgyptianMediumItalic,
+             .textEgyptianBold, .textEgyptianBoldItalic, .textEgyptianBlack, .textEgyptianBlackItalic:
             return .body
         case .titlepieceBold:
             return .title
         }
     }
 }
+
 public extension Font {
-    @available(*, deprecated, message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead")
+    @available(
+        *,
+        deprecated,
+        message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead"
+    )
     static func custom(style: GuardianFontStyle, size: CGFloat) -> Font {
         Font.custom(style.fontName, size: size)
     }
 
-    @available(*, deprecated, message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead")
+    @available(
+        *,
+        deprecated,
+        message: "This method is no longer supported. Use `View.font(:size:lineHeight:verticalTrim:)` instead"
+    )
     static func custom(style: GuardianFontStyle, size: CGFloat, relativeTo fontStyle: Font.TextStyle) -> Font {
         Font.custom(style.fontName, size: size, relativeTo: fontStyle)
     }
