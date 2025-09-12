@@ -140,14 +140,30 @@ public class GuardianFonts: NSObject {
     ///   - bundle: Bundle containing the font file asset
     ///   - fileName: Name of the font file
     ///   - fontExtension: font file extension, eg. ttf
+//    fileprivate static func registerFont(bundle: Bundle, fileName: String, fontExtension: String) {
+//        guard let fontURL = bundle.url(forResource: fileName, withExtension: fontExtension),
+//            let fontDataProvider = CGDataProvider(url: fontURL as CFURL),
+//            let font = CGFont(fontDataProvider) else {
+//            fatalError("Couldn't create font from filename: \(fileName) with extension \(fontExtension)")
+//        }
+//        var error: Unmanaged<CFError>?
+//        // Register font with the Core Graphics Font Manager
+//        CTFontManagerRegisterGraphicsFont(font, &error)
+//    }
     fileprivate static func registerFont(bundle: Bundle, fileName: String, fontExtension: String) {
-        guard let fontURL = bundle.url(forResource: fileName, withExtension: fontExtension),
-            let fontDataProvider = CGDataProvider(url: fontURL as CFURL),
-            let font = CGFont(fontDataProvider) else {
-            fatalError("Couldn't create font from filename: \(fileName) with extension \(fontExtension)")
+        guard let url = bundle.url(forResource: fileName, withExtension: fontExtension) else {
+            assertionFailure("Missing font: \(fileName).\(fontExtension)")
+            return
         }
+
         var error: Unmanaged<CFError>?
-        // Register font with the Core Graphics Font Manager
-        CTFontManagerRegisterGraphicsFont(font, &error)
+        let success = CTFontManagerRegisterFontsForURL(url as CFURL, .process, &error)
+
+        if !success, let err = error?.takeRetainedValue() {
+            // Ignore "already registered", log others
+            if CFErrorGetCode(err) != kCTFontManagerErrorAlreadyRegistered {
+                NSLog("Font registration failed: \(fileName).\(fontExtension) — \(err)")
+            }
+        }
     }
 }
