@@ -68,18 +68,25 @@ public struct FontPad: ViewModifier {
     }
 
     public func body(content: Content) -> some View {
-        content
-            .font(Font.custom(fontName, size: fontSize, relativeTo: relativeStyle))
-            .lineSpacing(lineSpacing)
-            .multilineTextAlignment(.leading)
-            .padding(
-                .top,
-                topValue
-            )
-            .padding(
-                .bottom,
-                bottomValue
-            )
+        if #available(iOS 26.0, *) {
+            content
+                .font(Font.custom(fontName, size: fontSize, relativeTo: relativeStyle))
+                .multilineTextAlignment(.leading)
+                .lineHeight(.exact(points: lineHeight ?? fontSize))
+        } else {
+            content
+                .font(Font.custom(fontName, size: fontSize, relativeTo: relativeStyle))
+                .lineSpacing(lineSpacing)
+                .multilineTextAlignment(.leading)
+                .padding(
+                    .top,
+                    topValue
+                )
+                .padding(
+                    .bottom,
+                    bottomValue
+                )
+        }
     }
 }
 
@@ -179,4 +186,12 @@ public extension Font {
     static func custom(style: GuardianFontStyle, size: CGFloat, relativeTo fontStyle: Font.TextStyle) -> Font {
         Font.custom(style.fontName, size: size, relativeTo: fontStyle)
     }
+}
+
+
+#Preview {
+    Text("Some text that I would like to style")
+       .font(GuardianFont(style: .headlineBold, size: 15, lineHeight: 15 * 1.15))
+       .previewFonts()
+
 }
