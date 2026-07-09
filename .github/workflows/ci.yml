@@ -39,3 +39,5 @@ jobs:
           contentDirectories: |
             frontend-static/static/frontend/fonts:
               - fonts/web
+            frontend-static/static/tools/fonts:
+              - fonts/tools
